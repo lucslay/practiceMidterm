@@ -1,4 +1,4 @@
-import practiceClassKEY as p
+import practiceClass as p
 import csv
 
 
@@ -36,6 +36,10 @@ NOTE: Do not hard code the values to create the instance but use
 keys and values from the dictionary '''
 
 
+for key, value in shows.items():
+    if value["id"] == 9587:
+        showing = p.Play(value["id"],value["name"],value["capacity"],value["event_date"])
+
 
 '''using the bookings.csv file process only those 
 reservations for the same play (9587). Create an 
@@ -46,11 +50,22 @@ error message as shown in output.JPG'''
 
 
 #open the csv file in read mode
-
+infile = open('bookings.csv','r')
 
 #create a csv object from the file object from the step above
-
-
+reader = csv.reader(infile)
 
 # use a for loop to iterate through each record in the bookings file
+next(reader)
 
+for row in reader:
+    if row[0] == '9587':
+        instance = p.Booking(row[1],row[2])
+        print(p.Play.seats_left(instance,124))
+        if p.Play.get_Seats(instance) == 0:
+            print("***********************************")
+            print("Guest Name: ", row[1])
+            print("Sorry, show: Hamilton is sold out")
+            print("***********************************")
+
+            #126 instances with 9587 in the bookings.csv, so output should print twice?
