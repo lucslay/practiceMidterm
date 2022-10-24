@@ -60,12 +60,10 @@ next(reader)
 
 for row in reader:
     if row[0] == '9587':
-        instance = p.Booking(row[1],row[2])
-        print(p.Play.seats_left(instance,124))
-        if p.Play.get_Seats(instance) == 0:
+        customer = p.Booking(row[1],row[2])
+        p.Play.seats_left(showing, showing.get_Seats())
+        if showing.get_Seats() < 0:
             print("***********************************")
             print("Guest Name: ", row[1])
             print("Sorry, show: Hamilton is sold out")
             print("***********************************")
-
-            #126 instances with 9587 in the bookings.csv, so output should print twice?
